@@ -5,9 +5,9 @@ const App = () => {
   return (
     <View style={{flex:1,backgroundColor:'black',alignItems:'center',justifyContent:'center'}}>
       <Text>Nikhil Karanam</Text>
+      <Text>Nikhil Royal</Text>
     </View>
   )
-  
 }
 
 export default App
