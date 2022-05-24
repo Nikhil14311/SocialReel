@@ -1,12 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import StackNavigator from './src/navigation/StackNavigator';
 
 const App = () => {
   return (
-    <View style={{flex:1,backgroundColor:'black',alignItems:'center',justifyContent:'center'}}>
-      <Text>Nikhil Karanam</Text>
-      <Text>Nikhil Royal</Text>
-    </View>
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   )
 }
 
