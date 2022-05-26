@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/Dashboard';
 import Notification from '../screens/Notification';
-import Entypo from 'react-native-vector-icons/Entypo'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { dimension } from '../common/PixelScaling';
+import Octicons from 'react-native-vector-icons/Octicons'
+import Reels from '../screens/Reels';
+import Profile from '../screens/Profile';
 
 
 const Tab = createBottomTabNavigator();
@@ -26,9 +27,9 @@ const BottomTabNavigator = () => {
             options={{
                 tabBarIcon : (tabInfo) => {
                     return(
-                        <Entypo 
+                        <Octicons 
                             name='home'
-                            size={24}
+                            size={dimension(24)}
                             color={tabInfo.focused ? "white" : "grey"}
                         />
                     )
@@ -36,14 +37,44 @@ const BottomTabNavigator = () => {
             }}
         />
         <Tab.Screen 
+            name="Reels" 
+            component={Reels}
+            options={{
+                tabBarIcon : (tabInfo) => {
+                    return(
+                        <Octicons 
+                            name='video'
+                            size={dimension(24)}
+                            color={tabInfo.focused ? "white" : "grey"}
+                        />
+                    )
+                }
+            }} 
+        />
+        <Tab.Screen 
             name="Notifications" 
             component={Notification}
             options={{
                 tabBarIcon : (tabInfo) => {
                     return(
-                        <Ionicons 
-                            name='notifications'
-                            size={24}
+                        <Octicons 
+                            name='bell'
+                            size={dimension(24)}
+                            color={tabInfo.focused ? "white" : "grey"}
+                        />
+                    )
+                }
+            }} 
+        />
+        <Tab.Screen 
+            name="Profile" 
+            component={Profile}
+            options={{
+                tabBarIcon : (tabInfo) => {
+                    return(
+                        <Octicons 
+                            name='person'
+                            size={dimension(24)}
                             color={tabInfo.focused ? "white" : "grey"}
                         />
                     )

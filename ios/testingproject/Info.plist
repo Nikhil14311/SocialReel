@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -51,5 +51,89 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>A25-SQUANOVA.ttf</string>
+		<string>Aline Signature.ttf</string>
+		<string>Another Danger - Demo.ttf</string>
+		<string>arial.ttf</string>
+		<string>Arista Signature.ttf</string>
+		<string>Azonix.ttf</string>
+		<string>Bellandha.ttf</string>
+		<string>Better Signature.ttf</string>
+		<string>Betterize_FREE.ttf</string>
+		<string>BlackSingature.ttf</string>
+		<string>BristineSignatureDemo.ttf</string>
+		<string>BrittanySignature.ttf</string>
+		<string>Brittney Signature.ttf</string>
+		<string>Bs Signature Demo.ttf</string>
+		<string>Capetown Signature Slant OTF.otf</string>
+		<string>Charlotte Signature Demo-Regular.ttf</string>
+		<string>Cocogoose Pro Italic-trial.ttf</string>
+		<string>Defused.ttf</string>
+		<string>east liberty signature.ttf</string>
+		<string>Encore.ttf</string>
+		<string>Equalize.ttf</string>
+		<string>Exo2-Black.ttf</string>
+		<string>Fenord Italic.ttf</string>
+		<string>Fenord Regular.ttf</string>
+		<string>Gatteway Signature demo.ttf</string>
+		<string>gibson-bold.ttf</string>
+		<string>Gibson-BoldItalic.ttf</string>
+		<string>Gibson-Regular.ttf</string>
+		<string>Gibson-RegularItalic.ttf</string>
+		<string>Gotham-Thin.otf</string>
+		<string>Gotham-Ultra.otf</string>
+		<string>Gotham-UltraItalic.ttf</string>
+		<string>GothamBold.ttf</string>
+		<string>GothamNarrow-Ultra.ttf</string>
+		<string>GRATIS.ttf</string>
+		<string>Gretaros-Regular.ttf</string>
+		<string>HeadlinerNo.45 DEMO.ttf</string>
+		<string>Hindenburg-Italic.ttf</string>
+		<string>Hindenburg.ttf</string>
+		<string>Insight Issue.ttf</string>
+		<string>Julietta Signature.ttf</string>
+		<string>JUNAR.ttf</string>
+		<string>KattelaSignature.ttf</string>
+		<string>Khand-Bold.ttf</string>
+		<string>Monoline Signature.ttf</string>
+		<string>OrtisanSignature.ttf</string>
+		<string>Parachute Signature.ttf</string>
+		<string>PEPSI_pl.ttf</string>
+		<string>Poppins-Black.ttf</string>
+		<string>Poppins-BlackItalic.ttf</string>
+		<string>Raleway-ExtraBold.ttf</string>
+		<string>Raleway-Heavy.ttf</string>
+		<string>Rotterdam Signature.ttf</string>
+		<string>Safarnama Signature.ttf</string>
+		<string>Sallim.ttf</string>
+		<string>SevenDaySignature.ttf</string>
+		<string>Signature Flavour Demo.ttf</string>
+		<string>Signature Moments.ttf</string>
+		<string>Signature.ttf</string>
+		<string>SmartSignature.ttf</string>
+		<string>Soul Signature.ttf</string>
+		<string>supercellmagic.ttf</string>
+		<string>SuperMario256.ttf</string>
+		<string>urae_nium.ttf</string>
+		<string>Zignature.ttf</string>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Fontisto.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Zocial.ttf</string>
+	</array>
 </dict>
 </plist>
