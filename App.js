@@ -1,8 +1,7 @@
 import { View, Text, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import StackNavigator from './src/navigation/StackNavigator';
 import AnimatedLottieView from 'lottie-react-native';
+import MainRoute from './src/screens/MainRoute';
 
 const App = () => {
   const [loader, setloader] = useState(true)
@@ -17,10 +16,7 @@ const App = () => {
       {loader ? 
         <AnimatedLottieView source={require('./assets/lottiefiles/stayhome.json')} autoPlay loop />
         :
-        <NavigationContainer> 
-          <StatusBar backgroundColor={'black'} />
-          <StackNavigator />
-        </NavigationContainer>
+        <MainRoute />
       }
     </View>
   )

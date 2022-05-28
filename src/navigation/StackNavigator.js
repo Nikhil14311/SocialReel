@@ -7,6 +7,7 @@ import Login from '../screens/Login';
 import Signup from '../screens/Signup';
 import BottomTabNavigator from './BottomTabNavigator';
 import Discover from '../screens/Discover';
+import CreateAccount from '../screens/CreateAccount';
 
 
 
@@ -18,25 +19,24 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator>
         <Stack.Screen 
+          name="CreateAccount" 
+          component={Signup}  
+          options={{headerShown:false}}
+        />
+        <Stack.Screen 
           name="Login" 
           component={Login}  
           options={{headerShown:false}}
         />
         <Stack.Screen 
           name="Signup" 
-          component={Signup} 
+          component={CreateAccount} 
           options={{headerShown:false}}
         />
         <Stack.Screen 
           name="discover" 
           component={Discover} 
           options={{headerShown:false}}
-          // options={{
-          //   title:"Discover People",
-          //   headerTitleAlign:'center',
-          //   headerTintColor:'white',
-          //   headerTransparent:true
-          // }}
         />
         <Stack.Screen 
           name="Home" 

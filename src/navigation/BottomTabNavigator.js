@@ -16,7 +16,7 @@ const BottomTabNavigator = () => {
         screenOptions={{
             tabBarActiveBackgroundColor:'black',
             tabBarInactiveBackgroundColor:'black',
-            tabBarActiveTintColor:'white',
+            tabBarActiveTintColor:'orange',
             tabBarInactiveTintColor:'grey',
             headerShown:false
         }}
@@ -30,7 +30,7 @@ const BottomTabNavigator = () => {
                         <Octicons 
                             name='home'
                             size={dimension(24)}
-                            color={tabInfo.focused ? "white" : "grey"}
+                            color={tabInfo.focused ? "orange" : "grey"}
                         />
                     )
                 }
@@ -45,7 +45,7 @@ const BottomTabNavigator = () => {
                         <Octicons 
                             name='video'
                             size={dimension(24)}
-                            color={tabInfo.focused ? "white" : "grey"}
+                            color={tabInfo.focused ? "orange" : "grey"}
                         />
                     )
                 }
@@ -60,7 +60,7 @@ const BottomTabNavigator = () => {
                         <Octicons 
                             name='bell'
                             size={dimension(24)}
-                            color={tabInfo.focused ? "white" : "grey"}
+                            color={tabInfo.focused ? "orange" : "grey"}
                         />
                     )
                 }
@@ -75,7 +75,7 @@ const BottomTabNavigator = () => {
                         <Octicons 
                             name='person'
                             size={dimension(24)}
-                            color={tabInfo.focused ? "white" : "grey"}
+                            color={tabInfo.focused ? "orange" : "grey"}
                         />
                     )
                 }

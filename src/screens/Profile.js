@@ -4,49 +4,19 @@ import { dimension, dimensionVertical } from '../common/PixelScaling'
 import Drusya from '../../assets/images/socialmedia.jpg'
 import { discoverPeople } from '../json/post'
 import Octicons from 'react-native-vector-icons/Octicons'
-//import BottomSheet from 'reanimated-bottom-sheet'
-//import Animated from 'react-native-reanimated'
 //import RBSheet from "react-native-raw-bottom-sheet";
 import MenuIcon from 'react-native-vector-icons/Entypo'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const Profile = (props) => {
-    // bs = React.createRef();
-    // fall = new Animated.Value(1);
 
-    // const renderInner = () => (
-    //     <View style={{backgroundColor:'#121212',paddingHorizontal:dimension(20)}}>
-    //         <Text style={{color:'white',alignSelf:'center',marginTop:dimension(20)}}>Are you sure you want to logout ?</Text>
-    //         <TouchableOpacity style={{
-    //             width:dimension(320),
-    //             height:dimensionVertical(48),
-    //             alignItems:'center',
-    //             justifyContent:'center',
-    //             borderWidth:1,
-    //             borderColor:'white',
-    //             marginTop:dimension(40),
-    //             marginBottom : dimension(50),
-    //             alignSelf:'center'
-                
-    //         }}
-    //         onPress={()=> props.navigation.navigate('ChildLoginPage')}
-    //         >
-    //             <Text style={{color:'white'}}>OK</Text>
-    //         </TouchableOpacity>
-    //     </View>
-    // )
-    
-    // const renderHeader = () => (
-    //     <View style={{backgroundColor:'#121212',paddingTop:dimension(20),borderTopLeftRadius:dimension(20),borderTopRightRadius:dimension(20)}}>
-    //         <View style={{alignItems:'center'}}>
-    //             <View style={{width:dimension(40),height:dimensionVertical(8),borderRadius:dimension(4),backgroundColor:'white',marginBottom:dimension(10)}}></View>
-    //         </View>
-    //     </View>
-    // )
+    //const refRBSheet = useRef();
 
-    // const refRBSheet = useRef();
-
-  return (
-    <View style={styles.mainContainer}>
-        {/* <BottomSheet
+    // const SignoutBtn = () => {
+    //     AsyncStorage.setItem(())
+    // }
+    return (
+        <View style={styles.mainContainer}>
+            {/* <BottomSheet
                 ref={bs}
                 snapPoints={[dimensionVertical(300),0]}
                 renderContent={renderInner}
@@ -60,128 +30,133 @@ const Profile = (props) => {
                 enabledContentGestureInteraction={true}
                 
             /> */}
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom:dimension(50)}}>
-           <View style={{flex:1,width:'100%',backgroundColor:'black',right:0,alignItems:'flex-end',right:10}}>
-                <TouchableOpacity>
-                    <MenuIcon name="menu" size={dimension(30)} color={'white'}/>   
-                </TouchableOpacity>
-           </View>
-            <View style={styles.headerContainer}>
-                <TouchableOpacity>
-                    <Image 
-                        source={Drusya}
-                        style={styles.headerImgContainer}
-                    />
-                    <Octicons
-                        name="plus-circle"
-                        size={dimension(24)}
-                        color='white'
-                        style={{position:'absolute',bottom:dimension(5),right:dimension(3),backgroundColor:'black',borderRadius:dimension(50)}}
-                    />
-                </TouchableOpacity>
-                <Text style={{marginTop:dimension(20),fontFamily:'monospace',color:'white',fontWeight:'bold',fontSize:dimension(18)}}>{"Nikhil Royal"}</Text>
-                <View style={styles.fallowContainer}>
-                    <View>
-                        <TouchableOpacity style={{alignItems:'center'}}>
-                            <Text style={styles.fallowTxt}>{"600"}</Text>
-                            <Text style={styles.fallowTxt1}>{"Posts"}</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                        <TouchableOpacity style={{alignItems:'center'}}>
-                            <Text style={styles.fallowTxt}>{"20k"}</Text>
-                            <Text style={styles.fallowTxt1}>{"Fallowers"}</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
-                    <TouchableOpacity style={{alignItems:'center'}}>
-                            <Text style={styles.fallowTxt}>{"120"}</Text>
-                            <Text style={styles.fallowTxt1}>{"Fallowing"}</Text>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom:dimension(50)}}>
+            <View style={{flex:1,width:'100%',backgroundColor:'black',right:0,alignItems:'flex-end',right:10}}>
+                    <TouchableOpacity>
+                        <MenuIcon name="menu" size={dimension(30)} color={'white'}/>   
                     </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.editProfileContainer}>
-                    <TouchableOpacity style={styles.editProfile} 
-                        //onPress={() => refRBSheet.current.open()}
-                    >
-                        <Text style={{color:'white'}}>Edit Profile</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
+                <View style={styles.headerContainer}>
+                    <TouchableOpacity>
+                        <Image 
+                            source={Drusya}
+                            style={styles.headerImgContainer}
+                        />
+                        <Octicons
+                            name="plus-circle"
+                            size={dimension(24)}
+                            color='white'
+                            style={{position:'absolute',bottom:dimension(5),right:dimension(3),backgroundColor:'black',borderRadius:dimension(50)}}
+                        />
+                    </TouchableOpacity>
+                    <Text style={{marginTop:dimension(20),fontFamily:'monospace',color:'white',fontWeight:'bold',fontSize:dimension(18)}}>{"Nikhil Royal"}</Text>
+                    <View style={styles.fallowContainer}>
+                        <View>
+                            <TouchableOpacity style={{alignItems:'center'}}>
+                                <Text style={styles.fallowTxt}>{"600"}</Text>
+                                <Text style={styles.fallowTxt1}>{"Posts"}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity style={{alignItems:'center'}}>
+                                <Text style={styles.fallowTxt}>{"20k"}</Text>
+                                <Text style={styles.fallowTxt1}>{"Fallowers"}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                        <TouchableOpacity style={{alignItems:'center'}}>
+                                <Text style={styles.fallowTxt}>{"120"}</Text>
+                                <Text style={styles.fallowTxt1}>{"Fallowing"}</Text>
+                        </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.editProfileContainer}>
+                        <TouchableOpacity style={styles.editProfile} 
+                            //onPress={() => refRBSheet.current.open()}
+                        >
+                            <Text style={{color:'white'}}>Edit Profile</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
-            <View>
-                <View style={styles.discoverPeopleTopContainer}>
-                    <Text style={styles.discoverPeopleTxt}>Discover People</Text>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('discover')}>
-                        <Text style={{color:'cyan',fontSize:dimension(15),fontFamily:'serif',fontWeight:'bold'}}>See All</Text>
+                <View>
+                    <View style={styles.discoverPeopleTopContainer}>
+                        <Text style={styles.discoverPeopleTxt}>Discover People</Text>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('discover')}>
+                            <Text style={{color:'cyan',fontSize:dimension(15),fontFamily:'serif',fontWeight:'bold'}}>See All</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView 
+                        showsHorizontalScrollIndicator={false} 
+                        horizontal
+                        style={{ borderBottomColor : 'grey',
+                        borderBottomWidth : 0.5}}
+                    >
+                        {discoverPeople.map((key,index)=> {
+                            return(
+                                <View style={styles.discoverPeopleContainer} key={index}>
+                                    <TouchableOpacity style={styles.discoverPeople}>
+                                        <Image 
+                                            source={key.image}
+                                            style={styles.discoverImgContainer}
+                                        />
+                                        <Text style={styles.fallowTxt1}>{key.name}</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.fallowBtn}>
+                                        <Text style={{fontSize:dimension(12),color:'white'}}>Fallow</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        })}
+                    </ScrollView>
+                </View>
+                <View style={styles.footerContainer}>
+                    <TouchableOpacity style={styles.footerContainers}>
+                        <Text style={styles.footerTxt}>{"Settings"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.footerContainers}>
+                        <Text style={styles.footerTxt}>{"Theme"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.footerContainers}>
+                        <Text style={styles.footerTxt}>{"Help"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.footerContainers}>
+                        <Text style={styles.footerTxt}>{"Privacy & Security"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.footerContainers} 
+                        //onPress={() => bs.current.snapTo(0)}
+                        //onPress={() => SignoutBtn()}
+                    >
+                        <Text style={styles.LogoutTxt}>{"Logout"}</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView 
-                    showsHorizontalScrollIndicator={false} 
-                    horizontal
-                    style={{ borderBottomColor : 'grey',
-                    borderBottomWidth : 0.5}}
-                >
-                    {discoverPeople.map((key,index)=> {
-                        return(
-                            <View style={styles.discoverPeopleContainer} key={index}>
-                                <TouchableOpacity style={styles.discoverPeople}>
-                                    <Image 
-                                        source={key.image}
-                                        style={styles.discoverImgContainer}
-                                    />
-                                    <Text style={styles.fallowTxt1}>{key.name}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.fallowBtn}>
-                                    <Text style={{fontSize:dimension(12),color:'white'}}>Fallow</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    })}
-                </ScrollView>
-            </View>
-            <View style={styles.footerContainer}>
-                <TouchableOpacity style={styles.footerContainers}>
-                    <Text style={styles.footerTxt}>{"Settings"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.footerContainers}>
-                    <Text style={styles.footerTxt}>{"Theme"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.footerContainers}>
-                    <Text style={styles.footerTxt}>{"Help"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.footerContainers}>
-                    <Text style={styles.footerTxt}>{"Privacy & Security"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.footerContainers} 
-                    //onPress={() => bs.current.snapTo(0)}
-                >
-                    <Text style={styles.LogoutTxt}>{"Logout"}</Text>
-                </TouchableOpacity>
-            </View>
-      </ScrollView>
-        {/* <RBSheet  
-            ref={refRBSheet}
-            closeOnDragDown={true}
-            closeOnPressMask={false}
-            customStyles={{
-            wrapper: {
-                backgroundColor: "transparent",
-            },
-            draggableIcon: {
-                backgroundColor: "#000",
-            },
-            container:{
-                borderTopLeftRadius:dimension(10),
-                borderTopRightRadius : dimension(10)
-            }
-            }}
-        >
-            <Text style={{color:'black'}}>Nikhil</Text>
-        </RBSheet> */}
-    </View>
-  )
-}
+                <View style={{alignItems:'center',paddingTop:dimension(5)}}>
+                    <Text style={{color:'white',fontFamily:'Aline Signature',fontSize:dimension(18)}}>{"Nikhil Karanam && Kalpana Vosuru"}</Text>
+                    <Text style={{color:'white',color:'cyan', fontFamily:'Hindenburg',fontSize:dimension(20)}}>Developed By</Text>
+                </View>
+        </ScrollView>
+            {/* <RBSheet  
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={false}
+                customStyles={{
+                wrapper: {
+                    backgroundColor: "transparent",
+                },
+                draggableIcon: {
+                    backgroundColor: "#000",
+                },
+                container:{
+                    borderTopLeftRadius:dimension(10),
+                    borderTopRightRadius : dimension(10)
+                }
+                }}
+            >
+                <Text style={{color:'black'}}>Nikhil</Text>
+            </RBSheet> */}
+        </View>
+    )
+    }
 
 const styles = StyleSheet.create({
     mainContainer : {
