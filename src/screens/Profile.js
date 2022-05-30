@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React, {useRef} from 'react'
+import React, {useRef, useContext} from 'react'
 import { dimension, dimensionVertical } from '../common/PixelScaling'
 import Drusya from '../../assets/images/socialmedia.jpg'
 import { discoverPeople } from '../json/post'
@@ -7,7 +7,10 @@ import Octicons from 'react-native-vector-icons/Octicons'
 //import RBSheet from "react-native-raw-bottom-sheet";
 import MenuIcon from 'react-native-vector-icons/Entypo'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AuthContext } from './Auth'
 const Profile = (props) => {
+
+    const { user , logout} = useContext(AuthContext)
 
     //const refRBSheet = useRef();
 
@@ -72,7 +75,7 @@ const Profile = (props) => {
                     </View>
                     <View style={styles.editProfileContainer}>
                         <TouchableOpacity style={styles.editProfile} 
-                            //onPress={() => refRBSheet.current.open()}
+                            onPress={() => props.navigation.navigate('EditProfile   ')}
                         >
                             <Text style={{color:'white'}}>Edit Profile</Text>
                         </TouchableOpacity>
@@ -125,7 +128,7 @@ const Profile = (props) => {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.footerContainers} 
                         //onPress={() => bs.current.snapTo(0)}
-                        //onPress={() => SignoutBtn()}
+                        onPress={() => logout()}
                     >
                         <Text style={styles.LogoutTxt}>{"Logout"}</Text>
                     </TouchableOpacity>

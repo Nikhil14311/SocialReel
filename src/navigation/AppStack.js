@@ -1,40 +1,32 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Dashboard from '../screens/Dashboard';
-import Notification from '../screens/Notification';
-import Login from '../screens/Login';
-import Signup from '../screens/Signup';
 import BottomTabNavigator from './BottomTabNavigator';
+import EditProfile from '../screens/EditProfile';
 import Discover from '../screens/Discover';
-import CreateAccount from '../screens/CreateAccount';
-
-
-
 
 const Stack = createNativeStackNavigator();
 
 
-const StackNavigator = () => {
+const AppStack = () => {
   return (
     <Stack.Navigator>
         <Stack.Screen 
-          name="CreateAccount" 
-          component={Signup}  
+          name="Home" 
+          component={BottomTabNavigator} 
           options={{headerShown:false}}
         />
         <Stack.Screen 
-          name="Login" 
-          component={Login}  
+          name="EditProfile" 
+          component={EditProfile} 
           options={{headerShown:false}}
         />
         <Stack.Screen 
-          name="Signup" 
-          component={CreateAccount} 
+          name="discover" 
+          component={Discover} 
           options={{headerShown:false}}
         />
     </Stack.Navigator>
   )
 }
 
-export default StackNavigator
+export default AppStack
