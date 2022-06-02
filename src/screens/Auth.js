@@ -21,7 +21,7 @@ export const AuthProvider = ({children,props}) => {
     if(error!==null){
         setTimeout(()=>{
             setError(false);
-        },5000)
+        },10000)
     }
     return(
         <AuthContext.Provider
@@ -33,7 +33,7 @@ export const AuthProvider = ({children,props}) => {
                         await auth().signInWithEmailAndPassword(email,password)
                     }catch(e){
                         console.log(e.message);
-                       setError(e.userinfo.message);
+                       setError(e.message);
                     }
                 },
                 register : async(email,password) => {

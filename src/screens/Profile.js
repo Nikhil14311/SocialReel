@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React, {useRef, useContext} from 'react'
+import React, {useRef, useContext, useEffect, useState} from 'react'
 import { dimension, dimensionVertical } from '../common/PixelScaling'
 import Drusya from '../../assets/images/socialmedia.jpg'
 import { discoverPeople } from '../json/post'
@@ -8,15 +8,49 @@ import Octicons from 'react-native-vector-icons/Octicons'
 import MenuIcon from 'react-native-vector-icons/Entypo'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AuthContext } from './Auth'
+import firestore from '@react-native-firebase/firestore';
+
+
 const Profile = (props) => {
 
     const { user , logout} = useContext(AuthContext)
+    
+    const [userData, setUserData] = useState(null)
+
+    useEffect(() => {
+        // firestore()
+        // .collection('Users')
+        // .doc('ABC')
+        // .get()
+        // .then(documentSnapshot => {
+        //     console.log('User exists: ', documentSnapshot.exists);
+
+        //     if (documentSnapshot.exists) {
+        //     console.log('User data: ', documentSnapshot.data());
+        //     }
+        // });
+
+        
+
+        const subscriber = firestore()
+        .collection('Users')
+        //.doc(user.uid)
+        .doc(user.uid)
+        .onSnapshot(documentSnapshot => {
+            console.log('User data: ', documentSnapshot.data());
+            setUserData(documentSnapshot.data());
+        });
+
+        // Stop listening for updates when no longer required
+        return () => subscriber();
+    },[user.uid])
 
     //const refRBSheet = useRef();
 
     // const SignoutBtn = () => {
     //     AsyncStorage.setItem(())
     // }
+    console.log("state data for users", userData)
     return (
         <View style={styles.mainContainer}>
             {/* <BottomSheet
@@ -34,25 +68,29 @@ const Profile = (props) => {
                 
             /> */}
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom:dimension(50)}}>
-            <View style={{flex:1,width:'100%',backgroundColor:'black',right:0,alignItems:'flex-end',right:10}}>
-                    <TouchableOpacity>
-                        <MenuIcon name="menu" size={dimension(30)} color={'white'}/>   
-                    </TouchableOpacity>
+            <View style={{flex:1,width:'100%',backgroundColor:'black',paddingHorizontal:dimension(20)}}>
+                <Text style={{marginTop:dimension(20),fontFamily:'monospace',color:'white',fontWeight:'bold',fontSize:dimension(18)}}>{(userData != null) ||(userData != undefined) ? userData.username : 'username'}</Text>
             </View>
-                <View style={styles.headerContainer}>
-                    <TouchableOpacity>
-                        <Image 
-                            source={Drusya}
-                            style={styles.headerImgContainer}
-                        />
-                        <Octicons
-                            name="plus-circle"
-                            size={dimension(24)}
-                            color='white'
-                            style={{position:'absolute',bottom:dimension(5),right:dimension(3),backgroundColor:'black',borderRadius:dimension(50)}}
-                        />
-                    </TouchableOpacity>
-                    <Text style={{marginTop:dimension(20),fontFamily:'monospace',color:'white',fontWeight:'bold',fontSize:dimension(18)}}>{"Nikhil Royal"}</Text>
+            {/* {userData.map((data,index) => { */}
+
+           
+                <View style={styles.headerContainer} >
+                    <View style={{width:'35%'}}>
+                        <TouchableOpacity>
+                            <Image 
+                                source={{uri : userData.imageUri}}
+                                style={styles.headerImgContainer}
+                            />
+                            {/* <Octicons
+                                name="plus-circle"
+                                size={dimension(24)}
+                                color='white'
+                                style={{position:'absolute',bottom:dimension(5),right:dimension(3),backgroundColor:'black',borderRadius:dimension(50)}}
+                            /> */}
+                        </TouchableOpacity>
+                        {/* <Text style={{ marginTop:dimension(20),fontFamily:'monospace',color:'white',fontWeight:'bold',fontSize:dimension(18)}}>{(userData != null) || (userData != undefined) ? userData.name : "Name"}</Text> */}
+                    </View>
+                <View style={{flexDirection:'column'}}>
                     <View style={styles.fallowContainer}>
                         <View>
                             <TouchableOpacity style={{alignItems:'center'}}>
@@ -75,13 +113,19 @@ const Profile = (props) => {
                     </View>
                     <View style={styles.editProfileContainer}>
                         <TouchableOpacity style={styles.editProfile} 
-                            onPress={() => props.navigation.navigate('EditProfile   ')}
+                            onPress={() => props.navigation.navigate('EditProfile')}
                         >
                             <Text style={{color:'white'}}>Edit Profile</Text>
                         </TouchableOpacity>
                     </View>
+                    </View>
                 </View>
-
+                <View style={styles.bioContainer}>
+                    <Text style={{fontFamily:'Poppins-Black',color:'white',fontWeight:'bold',fontSize:dimension(14)}}>{(userData != null) || (userData != undefined) ? userData.name : "Name"}</Text> 
+                    {userData != null ? <View style={{marginTop:dimension(5), marginBottom:dimension(20)}}>
+                        <Text style={{color:'white',fontSize:dimension(18),fontFamily:'GothamBold'}}>{userData.bio}</Text>
+                    </View> : null }
+                </View>
                 <View>
                     <View style={styles.discoverPeopleTopContainer}>
                         <Text style={styles.discoverPeopleTxt}>Discover People</Text>
@@ -166,12 +210,16 @@ const styles = StyleSheet.create({
         flex : 1,
         backgroundColor : 'black',
     },
-    headerContainer : {
-        alignItems : 'center',
+    bioContainer : {
         borderBottomColor : 'gray',
         borderBottomWidth : 0.5,
+        paddingHorizontal : dimension(20)
+    },
+    headerContainer : {
+        alignItems : 'center',
         paddingHorizontal : dimension(20),
-        paddingVertical : dimensionVertical(20)
+        paddingVertical : dimensionVertical(30),
+        flexDirection:'row'
     },
     headerImgContainer : {
         width:dimension(100),
@@ -184,9 +232,9 @@ const styles = StyleSheet.create({
     fallowContainer : {
         flexDirection:'row',
         justifyContent:'space-around',
-        width:'100%',
+        width:'78%',
         alignItems:'center',
-        marginTop : dimension(20)
+        //marginTop : dimension(20)
     },
     fallowTxt:{
         fontSize : dimension(18),
@@ -260,13 +308,14 @@ const styles = StyleSheet.create({
         fontFamily :  'normal'
     },
     editProfileContainer : {
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        paddingTop : dimension(20)
+        //flexDirection:'row',
+        //justifyContent:'space-between',
+        //alignItems:'center',
+        paddingTop : dimension(20),
+        //alignSelf:'center'
     },
     editProfile :{
-        width:dimension(280),
+        width:dimension(220),
         borderWidth:1,
         borderColor:'white',
         height:dimension(39),
