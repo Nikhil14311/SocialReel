@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import React, {useEffect, useState, useContext} from 'react'
 import { dimension } from '../common/PixelScaling'
-import firestore from '@react-native-firebase/firestore';
+import firestore, { firebase } from '@react-native-firebase/firestore';
 import { AuthContext } from './Auth';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import {hp} from '../common/Dimension'
@@ -10,49 +10,38 @@ import Storage from '@react-native-firebase/storage';
 
 
 
-const EditProfile = (props) => {
+const AddPost = (props) => {
     const {user} = useContext(AuthContext)
-//     useEffect(() => {
-//         const auth = getAuth();
-//         updateProfile(auth.currentUser, {
-//         displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
-//         }).then(() => {
-//             // Profile updated!
-//             console.log("Profile Updated")
-//         }).catch((error) => {
-//             // An error occurred
-//             console.log("Profile updated error",error)
-//         });
-//     })
 
-    const [nameChange, setName] = useState(null)
-    const [nameError, setNameError] = useState(false)
-
-    const [username, setUsername] = useState(null)
-    const [usernameError, setUsernameError] = useState(false)
+    useEffect(() => {
+        const subscriber = firestore()
+        .collection('Users')
+        //.doc(user.uid)
+        .doc(user.uid)
+        .onSnapshot(documentSnapshot => {
+            console.log('User data: ', documentSnapshot.data());
+            setUserData(documentSnapshot.data());
+        });
+        // Stop listening for updates when no longer required
+        return () => subscriber();
+    },[])
 
     const [bio, setBio] = useState(null)
     const [bioError, setBioError] = useState(false)
 
     const [imageUri, setImageUri] = useState(null)
 
+    const[userData,setUserData] = useState(null)
+
     const[uploading, setUploading] = useState(false)
     const[transfered, setTransfered] = useState(null)
 
-    const onChangeName = (text) => {
-        setName(text)
-        setNameError(false)
-    }
 
-    const onChangeUsername = (text) => {
-        const lowerCase = text.toLowerCase()
-        setUsername(lowerCase)
-        setUsernameError(false)
-    }
     const onChangeBio = (text) => {
         setBio(text)
         setBioError(false)
     }
+
 
     const onUpdateProfile = async () => {
         //const userid = JSON.stringify(user.uid);
@@ -89,50 +78,77 @@ const EditProfile = (props) => {
             //setImageUri(url);
 
            //return url;
-            if(name !== null && username !== null && bio !== null ){
+
+            if(bio != null ){
                 console.log('success......')
-                firestore()
-                .collection('Users')
-                .doc(user.uid)
-                .set({
-                    name: nameChange,
-                    username:username,
-                    bio:bio,
-                    imageUri:url,
+               await firestore()
+                .collection('posts')
+                .add({
+                    userid : user.uid,
+                    post : bio,
+                    userImage : userData.imageUri,
+                    username : userData.username,
+                    imageUri : url,
+                    postTime : firestore.Timestamp.fromDate(new Date()),
+                    likes:null,
+                    comments: null
                 })
                 .then(() => {
-                    console.log('User updated!');
-                    props.navigation.navigate('Profile')
+                    console.log('Post updated!');
+                    props.navigation.push('Home')
                 });
-                // const auth = getAuth();
-                // updateProfile(auth.currentUser, {
-                //     displayName: name, 
-                //     //photoURL: "https://example.com/jane-q-user/profile.jpg"
-                // }).then(() => {
-                // // Profile updated!
-                // // ...
-                // console.log('profile updated....')
-                // }).catch((error) => {
-                // // An error occurred
-                // // ...
-                // console.log(error)
-                // });
-                }
+                
             }
-        catch(e){
-            console.log('error',e)
+            if(bio === null){
+                setBioError(true)
+            }
+
+
+        }catch(e){
+            console.log('error',e);
+            return null;
         }
 
-        
-        if(name === null){
-            setNameError(true)
-        }
-        if(username === null){
-            setUsernameError(true)
-        }
-        if(bio === null){
-            setBioError(true)
-        }
+
+            //this is unusefull
+
+            // const auth = getAuth();
+            // updateProfile(auth.currentUser, {
+            //     displayName: name, 
+            //     //photoURL: "https://example.com/jane-q-user/profile.jpg"
+            // }).then(() => {
+            // // Profile updated!
+            // // ...
+            // console.log('profile updated....')
+            // }).catch((error) => {
+            // // An error occurred
+            // // ...
+            // console.log(error)
+            // });
+
+            // if(bio != null ){
+            //     console.log('success......')
+            //     firestore()
+            //     .collection('posts')
+            //     .add({
+            //         userid : user.uid,
+            //         post : bio,
+            //         userImage : userData.imageUri,
+            //         username : userData.username,
+            //         imageUri : imageUri,
+            //         postTime : firestore.Timestamp.fromDate(new Date()),
+            //         likes:null,
+            //         comments: null
+            //     })
+            //     .then(() => {
+            //         console.log('Post updated!');
+            //         props.navigation.push('Home')
+            //     });
+            // }
+
+            // if(bio === null){
+            //     setBioError(true)
+            // }
     }
 
 
@@ -169,9 +185,11 @@ const EditProfile = (props) => {
          
     }
 
+
     return (
         <View style={styles.mainContainer}>
             <View style={styles.imageContainer}>
+               
                     <TouchableOpacity style={{alignItems:'center',marginTop:hp(10)}} onPress={() =>accessGallery()}>
                     {imageUri == null ?
                         <EvilIcons name="user" size={180} color="white" />
@@ -179,31 +197,13 @@ const EditProfile = (props) => {
                     <Image 
                         source={{ uri: imageUri}} 
                         style={{width: 100, height: 100}} 
-                    /> }
+                    />  }
                      </TouchableOpacity>
                 <Text style={{fontWeight:'bold', fontSize:dimension(18),marginTop:dimension(20),color:'white'}}>Upload Image</Text>
             </View>
             <View style={styles.inputFiled}>
                 <TextInput 
-                    placeholder="Name"
-                    placeholderTextColor="grey"
-                    onChangeText={(text) => onChangeName(text)}
-                    style={styles.inputFiledTxt}
-                />
-               {nameError ? <Text style={{color:'red',marginTop:dimension(10)}}>Please enter name</Text> : null }
-            </View>
-            <View style={styles.inputFiled}>
-                <TextInput 
-                    placeholder="User name"
-                    placeholderTextColor="grey"
-                    onChangeText={(text) => onChangeUsername(text)}
-                    style={styles.inputFiledTxt}
-                />
-                {usernameError ? <Text style={{color:'red',marginTop:dimension(10)}}>Please enter username</Text> : null }
-            </View>
-            <View style={styles.inputFiled}>
-                <TextInput 
-                    placeholder="Bio"
+                    placeholder="Enter a message"
                     placeholderTextColor="grey"
                     onChangeText={(text) => onChangeBio(text)}
                     style={styles.inputFiledTxt}
@@ -218,15 +218,16 @@ const EditProfile = (props) => {
                         <ActivityIndicator size="large" color="#0000ff" />
                     </View>
                 ) :
-                <TouchableOpacity style={styles.updateBtn} onPress={() => onUpdateProfile()}>
-                    <Text>Update</Text>
-                </TouchableOpacity> }
+                    <TouchableOpacity style={styles.updateBtn} onPress={() => onUpdateProfile()}>
+                        <Text style={{color:'white'}}>Add Post</Text>
+                    </TouchableOpacity>
+                }
             </View>
         </View>
     )
 }
 
-export default EditProfile
+export default AddPost
 
 const styles = StyleSheet.create({
     mainContainer:{

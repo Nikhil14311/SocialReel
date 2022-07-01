@@ -21,7 +21,7 @@ export const AuthProvider = ({children,props}) => {
     if(error!==null){
         setTimeout(()=>{
             setError(false);
-        },10000)
+        },5000)
     }
     return(
         <AuthContext.Provider

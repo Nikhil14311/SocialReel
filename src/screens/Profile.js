@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, indicator } from 'react-native'
 import React, {useRef, useContext, useEffect, useState} from 'react'
 import { dimension, dimensionVertical } from '../common/PixelScaling'
 import Drusya from '../../assets/images/socialmedia.jpg'
@@ -9,13 +9,15 @@ import MenuIcon from 'react-native-vector-icons/Entypo'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AuthContext } from './Auth'
 import firestore from '@react-native-firebase/firestore';
-
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const Profile = (props) => {
 
     const { user , logout} = useContext(AuthContext)
     
     const [userData, setUserData] = useState(null)
+
 
     useEffect(() => {
         // firestore()
@@ -45,12 +47,74 @@ const Profile = (props) => {
         return () => subscriber();
     },[user.uid])
 
+    const UserProfileUpdation = () => {
+        firestore()
+        .collection('Users')
+        .doc(user.uid)
+        .update({
+            imageUri: 30,
+        })
+        .then(() => {
+            console.log('User updated!');
+            alert('User image updated');
+        });
+    }
+
     //const refRBSheet = useRef();
 
     // const SignoutBtn = () => {
     //     AsyncStorage.setItem(())
     // }
     console.log("state data for users", userData)
+
+
+
+    const accessGallery = () => {
+        var options = {
+            title: 'Select Image',
+            customButtons: [
+              {
+                name: 'customOptionKey',
+                title: 'Choose Photo from Custom Option'
+              },
+            ],
+            storageOptions: {
+              skipBackup: true,
+              path: 'images',
+            },
+         };
+         launchImageLibrary(options, response => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+              console.log(
+                'User tapped custom button: ',
+                response.customButton
+              );
+              alert(response.customButton);
+            } else {
+              //setImageUri(response.assets[0].uri);
+              firestore()
+              .collection('Users')
+              .doc(user.uid)
+              .update({
+                  imageUri: response.assets[0].uri,
+              })
+              .then(() => {
+                  console.log('User updated!');
+                  alert('User image updated');
+              });
+            }
+         });
+         
+    }
+
+
+
+
     return (
         <View style={styles.mainContainer}>
             {/* <BottomSheet
@@ -76,17 +140,15 @@ const Profile = (props) => {
            
                 <View style={styles.headerContainer} >
                     <View style={{width:'35%'}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => accessGallery()}>
+                        {((userData != null) ||(userData != undefined)) ? 
                             <Image 
                                 source={{uri : userData.imageUri}}
                                 style={styles.headerImgContainer}
                             />
-                            {/* <Octicons
-                                name="plus-circle"
-                                size={dimension(24)}
-                                color='white'
-                                style={{position:'absolute',bottom:dimension(5),right:dimension(3),backgroundColor:'black',borderRadius:dimension(50)}}
-                            /> */}
+                            :
+                            <EvilIcons name="user" size={100} color="white" />  
+                        }
                         </TouchableOpacity>
                         {/* <Text style={{ marginTop:dimension(20),fontFamily:'monospace',color:'white',fontWeight:'bold',fontSize:dimension(18)}}>{(userData != null) || (userData != undefined) ? userData.name : "Name"}</Text> */}
                     </View>
@@ -94,19 +156,19 @@ const Profile = (props) => {
                     <View style={styles.fallowContainer}>
                         <View>
                             <TouchableOpacity style={{alignItems:'center'}}>
-                                <Text style={styles.fallowTxt}>{"600"}</Text>
+                                <Text style={styles.fallowTxt}>{"0"}</Text>
                                 <Text style={styles.fallowTxt1}>{"Posts"}</Text>
                             </TouchableOpacity>
                         </View>
                         <View>
                             <TouchableOpacity style={{alignItems:'center'}}>
-                                <Text style={styles.fallowTxt}>{"20k"}</Text>
+                                <Text style={styles.fallowTxt}>{"0"}</Text>
                                 <Text style={styles.fallowTxt1}>{"Fallowers"}</Text>
                             </TouchableOpacity>
                         </View>
                         <View>
                         <TouchableOpacity style={{alignItems:'center'}}>
-                                <Text style={styles.fallowTxt}>{"120"}</Text>
+                                <Text style={styles.fallowTxt}>{"0"}</Text>
                                 <Text style={styles.fallowTxt1}>{"Fallowing"}</Text>
                         </TouchableOpacity>
                         </View>
@@ -121,7 +183,7 @@ const Profile = (props) => {
                     </View>
                 </View>
                 <View style={styles.bioContainer}>
-                    <Text style={{fontFamily:'Poppins-Black',color:'white',fontWeight:'bold',fontSize:dimension(14)}}>{(userData != null) || (userData != undefined) ? userData.name : "Name"}</Text> 
+                    <Text style={{fontFamily:'Poppins-Black',color:'white',fontWeight:'bold',fontSize:dimension(14),paddingBottom:dimension(20)}}>{(userData != null) || (userData != undefined) ? userData.name : "Name"}</Text> 
                     {userData != null ? <View style={{marginTop:dimension(5), marginBottom:dimension(20)}}>
                         <Text style={{color:'white',fontSize:dimension(18),fontFamily:'GothamBold'}}>{userData.bio}</Text>
                     </View> : null }

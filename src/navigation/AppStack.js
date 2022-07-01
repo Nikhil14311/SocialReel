@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabNavigator from './BottomTabNavigator';
 import EditProfile from '../screens/EditProfile';
 import Discover from '../screens/Discover';
+import AddPost from '../screens/AddPost';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ const AppStack = () => {
         <Stack.Screen 
           name="discover" 
           component={Discover} 
+          options={{headerShown:false}}
+        />
+        <Stack.Screen 
+          name="addPost" 
+          component={AddPost} 
           options={{headerShown:false}}
         />
     </Stack.Navigator>

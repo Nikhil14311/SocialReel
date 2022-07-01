@@ -79,7 +79,7 @@ const CreateAccount = (props) => {
                                 <View style={{paddingTop:hp(3)}}>
                                         <TextInput
                                             style={{color:"gainsboro",fontSize:wp(4),paddingLeft:wp(5),paddingTop:hp(1),alignItems:"center",justifyContent:"center",height:hp(8),borderWidth:1, backgroundColor:"grey"}}
-                                            placeholder="Phone Number"
+                                            placeholder="Enter Phone Number With +91"
                                             placeholderTextColor="lemonchiffon"
                                             secureTextEntry={false}
                                             //keyboardType='numeric'
