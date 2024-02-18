@@ -1,2 +1,1 @@
 # SocialReel
-Youtube programming tutorial
